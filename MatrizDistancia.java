@@ -67,18 +67,11 @@ public class MatrizDistancia {
 
         double[][] m = new double[size()][size()];
 
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
         int k = 0, l = 0;
-        int x = 1;
         for(int i = 0; i < matriz.length; i++) {
             if(i == index) continue;
             for(int j = 0; j < matriz.length; j++) {
                 if(j == index) continue;
-                System.out.println((x++) + ": " + k + " " + l);
                 m[k][l] = matriz[i][j];
                 l++;
             }
@@ -86,7 +79,6 @@ public class MatrizDistancia {
             k++;
         }
         matriz = m;
-        print();
 
     }
 
