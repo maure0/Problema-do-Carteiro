@@ -15,9 +15,9 @@ public class Grafo {
     }
 
     public void adicionarAresta(double peso, Vertice v1, Vertice v2) {
-        if(!vertices.contains(v1) || !vertices.contains(v2)) 
+        if (!vertices.contains(v1) || !vertices.contains(v2))
             throw new RuntimeException("Pelo menos um dos vertices não pertence ao grafo.");
-        
+
         Aresta e = new Aresta(peso, v1, v2);
         this.arestas.add(e);
 
@@ -31,13 +31,16 @@ public class Grafo {
     }
 
     public Aresta getAresta(Vertice u, Vertice v) {
-        for(int i = 0; i < arestas.size(); i++) {
+        for (int i = 0; i < arestas.size(); i++) {
             Aresta e = arestas.get(i);
-            if(e.getInicio().equals(u) && e.getFim().equals(v) || e.getInicio().equals(v) && e.getFim().equals(u)) return e;
+            if (e.getInicio().equals(u) && e.getFim().equals(v) || e.getInicio().equals(v) && e.getFim().equals(u))
+                return e;
         }
         return null;
     }
 
-
+    public List<Aresta> getArestas() {
+        return this.arestas;
+    }
 
 }

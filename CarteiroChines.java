@@ -23,6 +23,28 @@ public class CarteiroChines {
 
         // TODO Implementar Fleury para conseguir a rota
 
+    }
+
+    public List<Vertice> fleury() {
+        List<Vertice> encaminhamento = new ArrayList();
+        Vertice v = g.getVertices().get(0);
+        List<Aresta> es = new ArrayList<>();
+Vertice anterior = null;
+        while (es.size() < g.getArestas().size()) {
+if(anterior != null) v.setAnterior(anterior);
+            Aresta e = v.getArestaNaoVisitada();
+e.setVisitada(true);
+            es.add(e);
+            anterior = v;
+        v = e.verticeOposta(v);
+            
+        }
+
+        while(v != null) {
+            encaminhamento.add(v);
+            v = v.getAnterior();
+        }
+        return encaminhamento;
 
     }
 
@@ -63,7 +85,7 @@ public class CarteiroChines {
             }
         }
 
-        while(d.size() > 0) {
+        while (d.size() > 0) {
             Vertice[] v = d.menorPar();
             Vertice inicio = v[0];
             Vertice fim = v[1];
@@ -71,17 +93,16 @@ public class CarteiroChines {
             dijkstra(inicio, fim);
 
             Vertice atual = fim;
-            while(!atual.equals(inicio)) {
+            while (!atual.equals(inicio)) {
                 double w = g.getAresta(atual.getAnterior(), atual).getPeso();
                 g.adicionarAresta(w, fim, atual);
                 atual = atual.getAnterior();
             }
-            
+
             d.remove(inicio);
             d.remove(fim);
-        
+
         }
     }
-
 
 }

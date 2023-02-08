@@ -2,6 +2,7 @@ public class Aresta {
     private Vertice inicio;
     private Vertice fim;
     private double peso;
+    private boolean visitado = false;
     public Aresta(double peso, Vertice inicio, Vertice fim) {
         this.inicio = inicio;
         this.fim = fim;
@@ -34,6 +35,12 @@ public class Aresta {
 
     public void setPeso(double peso) {
         this.peso = peso;
+    }
+
+    public void setVisitada(boolean visitado) {this.visitado = visitado;}
+
+    public boolean isVisitada() {
+        return this.visitado;
     }
 
 }

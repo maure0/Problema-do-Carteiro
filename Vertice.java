@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Vertice {
     private List<Vertice> verticesAdjacentes; 
@@ -80,5 +81,14 @@ public class Vertice {
     public String getLabel() {
         return this.label;
     }
+
+    public Aresta getArestaNaoVisitada() {
+        Optional<Aresta> o = this.arestasIncidentes.stream().filter(e -> e.isVisitada()).min((a,b) -> Double.compare(a.getPeso(), b.getPeso()));
+
+                                                                    
+        return o.isPresent() ? o.get() : null;
+    }
+
+
 
 }
