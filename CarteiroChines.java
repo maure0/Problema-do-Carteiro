@@ -40,7 +40,7 @@ public class CarteiroChines {
         for(Vertice e : encaminhamento) {
             System.out.print(e.getLabel() + " -> ");
         }
-        System.out.println("Fim");
+        System.out.println(this.g.getVertices().get(0).getLabel());
     }
 
     public List<Vertice> fleury() {
