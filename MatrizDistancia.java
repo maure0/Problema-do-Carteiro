@@ -23,8 +23,8 @@ public class MatrizDistancia {
                 if (i != j && getDistancia(i, j) < menor) {
                     this.a = i;
                     this.b = j;
+                    menor = getDistancia(i, j);
                 }
-                ;
             }
         }
 
@@ -64,7 +64,6 @@ public class MatrizDistancia {
     public void remove(Vertice v) {
         int index = this.vertices.indexOf(v);
         this.vertices.remove(index);
-
         double[][] m = new double[size()][size()];
 
         int k = 0, l = 0;

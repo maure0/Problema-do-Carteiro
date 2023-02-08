@@ -24,7 +24,7 @@ public class Main {
         g.adicionarAresta(4, F, A);
         g.adicionarAresta(6, A, B);
         g.adicionarAresta(14, B, C);
-        g.adicionarAresta(0.5, C, A);
+        g.adicionarAresta(1, C, A);
         g.adicionarAresta(8, C, F);
         g.adicionarAresta(3, B, D);
         g.adicionarAresta(4, D, C);

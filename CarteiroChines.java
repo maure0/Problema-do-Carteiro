@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CarteiroChines {
 
@@ -18,32 +19,54 @@ public class CarteiroChines {
             }
         }
 
-        if (!verticesDeGrauImpar.isEmpty())
+        
+        for(Vertice v : this.g.getVertices()) {
+            System.out.println(v.getLabel() + " -> " + v.getArestasIncidentes().size());
+        }
+
+
+        if (!verticesDeGrauImpar.isEmpty()) {
             eulerizarGrafo(verticesDeGrauImpar);
+        } else {
+            System.out.println("O grafo ja é euleriano!");
+        }
+        
+        for(Vertice v : this.g.getVertices()) {
+            System.out.println(v.getLabel() + " -> " + v.getArestasIncidentes().size());
+        }
 
         // TODO Implementar Fleury para conseguir a rota
-
+        List<Vertice> encaminhamento = fleury();
+        for(Vertice e : encaminhamento) {
+            System.out.print(e.getLabel() + " -> ");
+        }
+        System.out.println("Fim");
     }
 
     public List<Vertice> fleury() {
-        List<Vertice> encaminhamento = new ArrayList();
+        List<Vertice> encaminhamento = new ArrayList<>();
         Vertice v = g.getVertices().get(0);
         List<Aresta> es = new ArrayList<>();
-Vertice anterior = null;
-        while (es.size() < g.getArestas().size()) {
-if(anterior != null) v.setAnterior(anterior);
-            Aresta e = v.getArestaNaoVisitada();
-e.setVisitada(true);
-            es.add(e);
-            anterior = v;
-        v = e.verticeOposta(v);
-            
+        Vertice anterior = null;
+        double custoTotal = 0;
+
+        for(int i = 0; i < g.getVertices().size(); i++) {
+            g.getVertices().get(i).setAnterior(null);
         }
 
-        while(v != null) {
+        while (es.size() < g.getArestas().size()) {
             encaminhamento.add(v);
-            v = v.getAnterior();
+            Aresta e = v.getArestaNaoVisitadaMenorPeso();
+            // if(Objects.isNull(e)) break;
+            System.out.println(e.getPeso());
+            custoTotal += e.getPeso();
+            e.setVisitada(true);
+            es.add(e);
+            anterior = v;
+            v = e.verticeOposta(v);
         }
+
+
         return encaminhamento;
 
     }
@@ -84,7 +107,7 @@ e.setVisitada(true);
                 d.setDistancia(i, j, distancia);
             }
         }
-
+        
         while (d.size() > 0) {
             Vertice[] v = d.menorPar();
             Vertice inicio = v[0];
@@ -92,17 +115,24 @@ e.setVisitada(true);
 
             dijkstra(inicio, fim);
 
+            System.out.println("Par com a menor distancia presente na matriz de distancias: " + inicio.getLabel() + " - " + fim.getLabel());
+
             Vertice atual = fim;
+            Vertice anterior = atual.getAnterior();
             while (!atual.equals(inicio)) {
                 double w = g.getAresta(atual.getAnterior(), atual).getPeso();
-                g.adicionarAresta(w, fim, atual);
+                anterior = atual;
                 atual = atual.getAnterior();
+                System.out.println("Adicionando aresta entre : " + anterior.getLabel() + " -> " + atual.getLabel());
+                g.adicionarAresta(w, anterior, atual);
             }
 
             d.remove(inicio);
             d.remove(fim);
-
+            System.out.println();
         }
+
+        System.out.println("Grafo eulerizado!");
     }
 
 }

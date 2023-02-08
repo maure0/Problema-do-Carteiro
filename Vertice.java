@@ -82,10 +82,8 @@ public class Vertice {
         return this.label;
     }
 
-    public Aresta getArestaNaoVisitada() {
-        Optional<Aresta> o = this.arestasIncidentes.stream().filter(e -> e.isVisitada()).min((a,b) -> Double.compare(a.getPeso(), b.getPeso()));
-
-                                                                    
+    public Aresta getArestaNaoVisitadaMenorPeso() {
+        Optional<Aresta> o = this.arestasIncidentes.stream().filter(e -> !e.isVisitada()).min((a,b) -> Double.compare(a.getPeso(), b.getPeso()));
         return o.isPresent() ? o.get() : null;
     }
 
